@@ -30,16 +30,6 @@ overworld_x = false;
 overworld_y = false;
 path = false;
 
-while !start_here {
-    x = (irandom(CHUNK_WIDTH)*TILE_WIDTH)
-    y = (irandom(CHUNK_HEIGHT)*TILE_HEIGHT)
-    var check_water = ds_grid_get(global.overworld_map, (x - x%TILE_WIDTH)/TILE_WIDTH, (y - y%TILE_HEIGHT)/TILE_HEIGHT);
-    if is_real(check_water) {
-        if check_water.sprite_index != spr_water {
-            start_here = true;
-        }
-    }
-}
 </string>
           </argument>
         </arguments>
@@ -95,21 +85,21 @@ while !start_here {
             <kind>1</kind>
             <string>if room == rm_overworld {
     ///set path to mouseclick
-    if ds_grid_get(global.overworld_map, (mouse_x - mouse_x%TILE_WIDTH)/TILE_WIDTH, (mouse_y - mouse_y%TILE_HEIGHT)/TILE_HEIGHT).sprite_index != spr_water {
+    if TILE_AT_MOUSE.sprite_index != spr_water {
         if  path_exists(path) {
             path_delete(path);
         }
         path = path_add();
-        overworld_x = (mouse_x - mouse_x%TILE_WIDTH);
-        overworld_y = (mouse_y - mouse_y%TILE_HEIGHT);
-        
-        var tile = ds_grid_get(global.overworld_map, overworld_x/TILE_HEIGHT, overworld_y/TILE_HEIGHT);
-        if is_real(tile){
-            if tile.room_key = -1 {
+        overworld_x = (mouse_x - mouse_x%TILE_WIDTH) + TILE_WIDTH/2;
+        overworld_y = (mouse_y - mouse_y%TILE_HEIGHT) + TILE_WIDTH/4;
+                
+        if is_real(TILE_AT_DESTINATION){
+            if !TILE_AT_DESTINATION.room_key {
                 randomize();
+                var tile = TILE_AT_DESTINATION;
                 tile.room_key = random_get_seed();
             }
-            global.room_seed = tile.room_key;
+            global.room_seed = TILE_AT_DESTINATION.room_key;
         }
             
         if (mp_grid_path(global.overworld_path_map, path, x, y, overworld_x, overworld_y, false)) {
@@ -178,8 +168,8 @@ if room == rm_overworld {
     if !overworld_x {
         var start_here = false; 
         while !start_here {
-            x = (irandom(CHUNK_WIDTH)*TILE_WIDTH)
-            y = (irandom(CHUNK_HEIGHT)*TILE_HEIGHT)
+            x = (irandom(CHUNK_WIDTH)*TILE_WIDTH) + TILE_WIDTH/2;
+            y = (irandom(CHUNK_HEIGHT)*TILE_HEIGHT) + TILE_HEIGHT/4;
             var check_water = ds_grid_get(global.overworld_map, (x - x%TILE_WIDTH)/TILE_WIDTH, (y - y%TILE_HEIGHT)/TILE_HEIGHT);
             if is_real(check_water) {
                 if check_water.sprite_index != spr_water {
