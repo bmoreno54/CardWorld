@@ -19,6 +19,7 @@
     <sprite>sprites\spr_peak</sprite>
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_water</sprite>
+    <sprite>sprites\spr_pathing</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_floor</background>
@@ -60,7 +61,7 @@
     <room>rooms\rm_overworld</room>
     <room>rooms\rm_action</room>
   </rooms>
-  <constants number="16">
+  <constants number="18">
     <constant name="CELL_WIDTH">32</constant>
     <constant name="CELL_HEIGHT">32</constant>
     <constant name="FLOOR">-5</constant>
@@ -77,6 +78,8 @@
     <constant name="TILE_HEIGHT">32</constant>
     <constant name="MAX_PEAKS">0.05</constant>
     <constant name="MAX_ELEVATION">2</constant>
+    <constant name="TILE_AT_MOUSE">ds_grid_get(global.overworld_map, (mouse_x - mouse_x%TILE_WIDTH)/TILE_WIDTH, (mouse_y - mouse_y%TILE_HEIGHT)/TILE_HEIGHT)</constant>
+    <constant name="TILE_AT_DESTINATION">ds_grid_get(global.overworld_map, (overworld_x-TILE_WIDTH/2)/TILE_WIDTH, (overworld_y-TILE_HEIGHT/4)/TILE_HEIGHT)</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

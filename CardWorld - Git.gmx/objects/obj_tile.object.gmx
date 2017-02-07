@@ -29,7 +29,7 @@
 sprite_index = choose(spr_grass,spr_dirt);
 elevation = 0;
 image_speed = 0;
-room_key = -1;
+room_key = false;
 </string>
           </argument>
         </arguments>
