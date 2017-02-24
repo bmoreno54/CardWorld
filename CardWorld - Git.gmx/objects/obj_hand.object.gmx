@@ -213,27 +213,27 @@ alarm[0] = -1;
           <argument>
             <kind>1</kind>
             <string>if alarm[0] &lt; 1 {
-    draw_sprite(global.q_slot, -1, 245, 272);
+    draw_sprite(global.q_slot, -1, display_get_width()/2-(15+sprite_get_width(spr_card_back)*2), display_get_height()-110);
 } else {
-    draw_sprite_ext(global.q_slot, 0, 245, 272, 1, 1, 0, c_yellow, 0.5);
+    draw_sprite_ext(global.q_slot, 0, display_get_width()/2-(15+sprite_get_width(spr_card_back)*2), display_get_height()-110, 1, 1, 0, c_yellow, 0.5);
 }
 
 if alarm[1] &lt; 1 {
-    draw_sprite(global.w_slot, -1, 303, 272);
+    draw_sprite(global.w_slot, -1, display_get_width()/2-(5+sprite_get_width(spr_card_back)), display_get_height()-110);
 } else {
-    draw_sprite_ext(global.w_slot, -1, 303, 272, 1, 1, 0, c_yellow, 0.5);
+    draw_sprite_ext(global.w_slot, -1, display_get_width()/2-(5+sprite_get_width(spr_card_back)), display_get_height()-110, 1, 1, 0, c_yellow, 0.5);
 }
 
 if alarm[2] &lt; 1 {
-    draw_sprite(global.e_slot, -1, 361, 272);
+    draw_sprite(global.e_slot, -1, display_get_width()/2+5, display_get_height()-110);
 } else {
-    draw_sprite_ext(global.e_slot, -1, 361, 272, 1, 1, 0, c_yellow, 0.5);
+    draw_sprite_ext(global.e_slot, -1, display_get_width()/2+5, display_get_height()-110, 1, 1, 0, c_yellow, 0.5);
 }
 
 if alarm[3] &lt; 1 {
-    draw_sprite(global.r_slot, -1, 419, 272);
+    draw_sprite(global.r_slot, -1, display_get_width()/2+15+sprite_get_width(spr_card_back), display_get_height()-110);
 } else {
-    draw_sprite_ext(global.r_slot, -1, 419, 272, 1, 1, 0, c_yellow, 0.5);
+    draw_sprite_ext(global.r_slot, -1, display_get_width()/2+15+sprite_get_width(spr_card_back), display_get_height()-110, 1, 1, 0, c_yellow, 0.5);
 }
 </string>
           </argument>

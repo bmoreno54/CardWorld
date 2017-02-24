@@ -35,7 +35,7 @@ global.overworld_map = ds_grid_create(CHUNK_WIDTH, CHUNK_HEIGHT);
 scr_add_biomes(global.overworld_map);
 
     // Create the pathfinding grid
-global.overworld_path_map = mp_grid_create(TILE_WIDTH/2,TILE_HEIGHT*3/4,CHUNK_WIDTH,CHUNK_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
+global.overworld_path_map = mp_grid_create(0,0,CHUNK_WIDTH,CHUNK_HEIGHT,TILE_WIDTH,TILE_HEIGHT);
 
     // Add mountain peaks
 scr_add_mountains(global.overworld_map);  

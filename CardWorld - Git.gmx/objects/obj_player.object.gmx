@@ -3,7 +3,7 @@
   <spriteName>spr_player</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>-1</depth>
+  <depth>-2</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,11 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>start_here = false;
-overworld_x = false;
-overworld_y = false;
-path = false;
-
+            <string>scr_initialize_player();
 </string>
           </argument>
         </arguments>
@@ -54,9 +50,12 @@ path = false;
             <kind>1</kind>
             <string>if room == rm_overworld {
     if path_exists(path) {
-        if overworld_x == x and overworld_y == y {
+        if TILE_AT_DESTINATION == TILE_AT_LOCATION {
             path_delete(path);
+            first_click_x = false;
+            first_click_y = false;
             // Enter Action Mode when destination reached
+            scr_seed_tile();      
             room_goto(rm_action);
         }
     }
@@ -84,28 +83,27 @@ path = false;
           <argument>
             <kind>1</kind>
             <string>if room == rm_overworld {
-    ///set path to mouseclick
-    if TILE_AT_MOUSE.sprite_index != spr_water {
+
+    var xx = (mouse_x - mouse_x%TILE_WIDTH)+TILE_WIDTH/2;
+    var yy = (mouse_y - mouse_y%TILE_HEIGHT)+TILE_HEIGHT/2;
+    
+    ///set 1st click
+    if xx != first_click_x || yy != first_click_y {
+        first_click_x = xx;
+        first_click_y = yy;
+    } else {
+        overworld_x = xx;
+        overworld_y = yy;                    
+        ///set path to mouseclick
         if  path_exists(path) {
             path_delete(path);
         }
         path = path_add();
-        overworld_x = (mouse_x - mouse_x%TILE_WIDTH) + TILE_WIDTH/2;
-        overworld_y = (mouse_y - mouse_y%TILE_HEIGHT) + TILE_WIDTH/4;
-                
-        if is_real(TILE_AT_DESTINATION){
-            if !TILE_AT_DESTINATION.room_key {
-                randomize();
-                var tile = TILE_AT_DESTINATION;
-                tile.room_key = random_get_seed();
-            }
-            global.room_seed = TILE_AT_DESTINATION.room_key;
-        }
-            
+        
         if (mp_grid_path(global.overworld_path_map, path, x, y, overworld_x, overworld_y, false)) {
             path_start(path, TILE_WIDTH/room_speed*2, path_action_stop, false);
-        } 
-    }
+        }
+    } 
 }
 </string>
           </argument>
@@ -168,11 +166,11 @@ if room == rm_overworld {
     if !overworld_x {
         var start_here = false; 
         while !start_here {
-            x = (irandom(CHUNK_WIDTH)*TILE_WIDTH) + TILE_WIDTH/2;
-            y = (irandom(CHUNK_HEIGHT)*TILE_HEIGHT) + TILE_HEIGHT/4;
-            var check_water = ds_grid_get(global.overworld_map, (x - x%TILE_WIDTH)/TILE_WIDTH, (y - y%TILE_HEIGHT)/TILE_HEIGHT);
-            if is_real(check_water) {
-                if check_water.sprite_index != spr_water {
+            x = (irandom(CHUNK_WIDTH)*TILE_WIDTH) +TILE_WIDTH/2;
+            y = (irandom(CHUNK_HEIGHT)*TILE_HEIGHT)+TILE_HEIGHT/2;
+            var check_tile = ds_grid_get(global.overworld_map, (x - x%TILE_WIDTH)/TILE_WIDTH, (y - y%TILE_HEIGHT)/TILE_HEIGHT);
+            if is_real(check_tile) {
+                if check_tile.sprite_index != spr_water and check_tile.elevation != 2 {
                     start_here = true;
                 }
             }
@@ -191,6 +189,53 @@ if room == rm_action {
     a_path = false;
 }
 
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="73">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/*if first_click_x != false {
+    if path_exists(path) {
+        if (mp_grid_path(global.overworld_path_map, path, x, y, overworld_x, overworld_y, false)) {
+            draw_path(path, x, y, false);
+        }
+    }
+}
+
+
+/*
+draw_set_alpha(0.3);
+mp_grid_draw(global.overworld_path_map);
+draw_set_alpha(1);
+*/
+
+if first_click_x != false {
+    var draw_this = path_add();
+    if (mp_grid_path(global.overworld_path_map, draw_this, x, y, first_click_x, first_click_y, false)) {
+        draw_sprite(spr_tile_selected,0,first_click_x - TILE_WIDTH/2,first_click_y - TILE_HEIGHT/2);
+    } else {
+        draw_sprite(spr_tile_selected,1,first_click_x - TILE_WIDTH/2,first_click_y - TILE_HEIGHT/2);
+    }
+}
+    
 
 </string>
           </argument>

@@ -100,7 +100,7 @@ if deck_size &gt; 0 {
 var deck_size = ds_stack_size(global.deck);
 image_index = min(3, deck_size);
 
-draw_sprite(spr_deck, -1, 187, 272);
+draw_sprite(spr_deck, -1, display_get_width()/2-(25+sprite_get_width(spr_card_back)*3), display_get_height()-110);
 </string>
           </argument>
         </arguments>
