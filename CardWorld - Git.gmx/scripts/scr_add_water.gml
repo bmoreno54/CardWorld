@@ -13,16 +13,17 @@ while total_water > 0 {
     
     while body_of_water > 0 {
         var update_tile = ds_grid_get(map_id, place_water_x, place_water_y);
-        var shift_x = choose(0, choose(-1,1));
-        place_water_x = clamp(place_water_x + shift_x, 0, map_width);
-        if shift_x = 0 {
-            place_water_y = clamp(place_water_y + irandom_range(-1,1), 0, map_height);
-        }
         if is_real(update_tile){
             if update_tile.sprite_index != (spr_water || spr_peak) {
                 update_tile.sprite_index = spr_water;
                 body_of_water -= 1;
+                mp_grid_add_cell(global.overworld_path_map, place_water_x, place_water_y);
             }
+        }
+        var shift_x = choose(0, choose(-1,1));
+        place_water_x = clamp(place_water_x + shift_x, 0, map_width);
+        if shift_x = 0 {
+            place_water_y = clamp(place_water_y + irandom_range(-1,1), 0, map_height);
         }
     }
 }

@@ -100,13 +100,13 @@ if next == spr_card_red {
             <string>next = ds_queue_dequeue(global.resolve);
 
 if next == spr_card_red {
-    with (instance_nearest(Player.x, Player.y, Enemy)) {
+    with (instance_nearest(obj_player.x, obj_player.y, Enemy)) {
         instance_destroy();
     }
 } else if next == spr_card_blue {
     var i;
     for (i = 0; i &lt; 5; i++) {
-        target = instance_nearest(Player.x, Player.y, Enemy);
+        target = instance_nearest(obj_player.x, obj_player.y, Enemy);
         ok_to_land = false;
             
         while ok_to_land = false {
@@ -122,7 +122,7 @@ if next == spr_card_red {
         target.y = check_y * CELL_HEIGHT+CELL_HEIGHT/2;
     }
 } else if next == spr_card_green {
-    instance_create(Player.x, Player.y, obj_poison_cloud);
+    instance_create(obj_player.x, obj_player.y, obj_poison_cloud);
 }
 </string>
           </argument>

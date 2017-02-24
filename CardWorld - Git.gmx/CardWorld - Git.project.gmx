@@ -3,10 +3,11 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\Draw Sprite along Path</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_player_star</sprite>
     <sprite>sprites\spr_enemy</sprite>
     <sprite>sprites\spr_card_back</sprite>
     <sprite>sprites\spr_deck</sprite>
@@ -20,6 +21,7 @@
     <sprite>sprites\spr_player</sprite>
     <sprite>sprites\spr_water</sprite>
     <sprite>sprites\spr_pathing</sprite>
+    <sprite>sprites\spr_tile_selected</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_floor</background>
@@ -35,6 +37,11 @@
       <script>scripts\scr_add_biomes.gml</script>
       <script>scripts\scr_add_mountains.gml</script>
       <script>scripts\scr_add_water.gml</script>
+    </scripts>
+    <script>scripts\draw_path_sprite.gml</script>
+    <scripts name="Player">
+      <script>scripts\scr_initialize_player.gml</script>
+      <script>scripts\scr_seed_tile.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">
@@ -52,6 +59,7 @@
     <object>objects\obj_tile</object>
     <object>objects\obj_player</object>
     <object>objects\obj_overworld</object>
+    <object>objects\obj_path</object>
     <objects name="Deprecated">
       <object>objects\obj_display</object>
       <object>objects\Player</object>
@@ -61,7 +69,7 @@
     <room>rooms\rm_overworld</room>
     <room>rooms\rm_action</room>
   </rooms>
-  <constants number="18">
+  <constants number="19">
     <constant name="CELL_WIDTH">32</constant>
     <constant name="CELL_HEIGHT">32</constant>
     <constant name="FLOOR">-5</constant>
@@ -80,6 +88,7 @@
     <constant name="MAX_ELEVATION">2</constant>
     <constant name="TILE_AT_MOUSE">ds_grid_get(global.overworld_map, (mouse_x - mouse_x%TILE_WIDTH)/TILE_WIDTH, (mouse_y - mouse_y%TILE_HEIGHT)/TILE_HEIGHT)</constant>
     <constant name="TILE_AT_DESTINATION">ds_grid_get(global.overworld_map, (overworld_x-TILE_WIDTH/2)/TILE_WIDTH, (overworld_y-TILE_HEIGHT/4)/TILE_HEIGHT)</constant>
+    <constant name="TILE_AT_LOCATION">ds_grid_get(global.overworld_map, (x-TILE_WIDTH/2)/TILE_WIDTH, (y-TILE_HEIGHT/4)/TILE_HEIGHT)</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
